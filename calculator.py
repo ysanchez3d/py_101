@@ -14,6 +14,8 @@ def invalid_number(number_str):
 
     return False
 
+LANGUAGE = 'es'
+
 def perform_calculation():
     prompt("What's the first number?")
     number1 = input()
@@ -26,14 +28,14 @@ def perform_calculation():
     number2 = input()
 
     while invalid_number(number2):
-        prompt(data["invalid"])
+        prompt(messages("invalid", LANGUAGE))
         number2 = input()
 
-    prompt(data["operation"])
+    prompt(messages("operation", LANGUAGE))
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        prompt(data["pick_operation"])
+        prompt(messages("pick_operation", LANGUAGE))
         operation = input()
 
     match operation:
@@ -48,11 +50,15 @@ def perform_calculation():
 
     prompt(f"The result is {output}")
 
-    prompt(data["new_calculation"])
+    prompt(messages("new_calculation", LANGUAGE))
     answer = input()
 
     if answer == 'yes':
         perform_calculation()
 
-prompt(data["welcome"])
+
+def messages(message, lang='en'):
+    return data[lang][message]
+
+prompt(messages("welcome", LANGUAGE))
 perform_calculation()
