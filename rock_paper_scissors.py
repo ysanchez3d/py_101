@@ -2,22 +2,29 @@ import random
 
 VALID_CHOICES = ['rock', 'paper', 'scissors']
 
+WINNING_COMBOS = {
+    'rock':     ['scissors', 'lizard'],
+    'paper':    ['rock',     'spock'],
+    'scissors': ['paper',    'lizard'],
+    'lizard':   ['paper',    'spock'],
+    'spock':    ['rock',     'scissors'],
+}
+
 def prompt(message):
     print(f"==> {message}")
+
+def player_wins(player_choice, computer_choice):
+    return computer_choice in WINNING_COMBOS[player_choice]
 
 def display_winner(player, computer):
     prompt(f"You chose {player}, computer chose {computer}")
 
-    if ((player == 'rock' and computer == 'scissors') or 
-        (player == 'paper' and computer == 'rock') or
-        (player == 'scissors' and computer == 'paper')):
-        prompt("You win!")
-    elif ((player == 'rock' and computer == 'paper') or 
-        (player == 'paper' and computer == 'scissors') or 
-        (player == 'scissors' and computer == 'rock')):
-        prompt('Computer wins!')
+    if player_wins(player, computer):
+        print('You win!')
+    elif player == computer:
+        print("It's a tie!")
     else:
-        prompt("It's a tie!")
+        print("Computer wins!")
 
 while True:
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
